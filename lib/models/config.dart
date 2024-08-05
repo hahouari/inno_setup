@@ -175,12 +175,12 @@ class Config {
         }).toList(growable: false) ??
         Language.values;
 
-    if (json['admin'] != null && json['admin'] is! bool) {
+    if (inno['admin'] != null && inno['admin'] is! bool) {
       CliLogger.exitError(
           "inno_bundle.admin attribute is invalid boolean value "
           "in pubspec.yaml");
     }
-    final bool admin = json['admin'] ?? true;
+    final bool admin = inno['admin'] ?? true;
 
     return Config(
       buildArgs: buildArgs,
