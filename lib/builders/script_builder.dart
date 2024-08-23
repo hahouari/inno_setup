@@ -27,6 +27,7 @@ class ScriptBuilder {
     final updatesUrl = config.updatesUrl;
     final privileges = config.admin ? 'admin' : 'lowest';
     final installerName = '${camelCase(name)}-x86_64-$version-Installer';
+    final licenseFile = config.licenseFile;
     var installerIcon = config.installerIcon;
     var uninstallIcon = "{app}\\${config.exeName}";
 
@@ -56,6 +57,7 @@ AppPublisher=$publisher
 AppPublisherURL=$url
 AppSupportURL=$supportUrl
 AppUpdatesURL=$updatesUrl
+LicenseFile=$licenseFile
 DefaultDirName={autopf}\\$name
 PrivilegesRequired=$privileges
 OutputDir=$outputDir

@@ -40,6 +40,9 @@ class Config {
   /// The path to the installer icon file.
   final String installerIcon;
 
+  // The path to the license file.
+  final String licenseFile;
+
   /// The supported languages for the installer.
   final List<Language> languages;
 
@@ -73,9 +76,10 @@ class Config {
     required this.installerIcon,
     required this.languages,
     required this.admin,
+    required this.licenseFile,
     this.type = BuildType.debug,
     this.app = true,
-    this.installer = true,
+    this.installer = true, 
   });
 
   /// The name of the executable file that is created with flutter build.
@@ -182,6 +186,23 @@ class Config {
     }
     final bool admin = inno['admin'] ?? true;
 
+    if (inno['license_file'] != null && inno['license_file'] is! String) {
+      CliLogger.exitError("inno_bundle.installer_icon attribute is invalid "
+          "in pubspec.yaml.");
+    }
+
+    final licenseFile = File(inno['license_file'] != null
+                ? p.join(
+                    Directory.current.path, p.fromUri(inno['license_file']))
+                : p.join(Directory.current.path, 'LICENSE'))
+            .existsSync()
+        ? File(inno['license_file'] != null
+                ? p.join(
+                    Directory.current.path, p.fromUri(inno['license_file']))
+                : p.join(Directory.current.path, 'LICENSE'))
+            .path
+        : "";
+
     return Config(
       buildArgs: buildArgs,
       id: id,
@@ -199,6 +220,7 @@ class Config {
       type: type,
       app: app,
       installer: installer,
+      licenseFile: licenseFile,
     );
   }
 
