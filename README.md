@@ -117,6 +117,7 @@ All attributes should be under `inno_bundle` in `pubspec.yaml`.
   - `false`: Don't require elevated privileges during installation. App will
     install into user-specific folder.
 - `license_file`: A path relative to the project that points to a text license file, if not provided, `inno_bundle` will look up for `LICENSE` file in your project root folder. Otherwise, it is set to an empty string.
+- `sign_tool`: Specifies the name and parameters of the Sign Tool to be used to digitally sign the installer. The name of the sign tool can be added in Inno Setup's `Tools > Configure Sign Tools...`.
 
 <span id="attributes-more-1"><sup>1</sup></span> Only **.ico** images were
 tested.
