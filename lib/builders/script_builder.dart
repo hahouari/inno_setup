@@ -90,7 +90,7 @@ Type: filesandordirs; Name: "{app}\\*"
   String _tasks() {
     return '''
 [Tasks]
-Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{cm:AdditionalIcons}"; Flags: unchecked
+Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{cm:AdditionalIcons}";
 \n''';
   }
 
