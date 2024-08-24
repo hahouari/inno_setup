@@ -73,3 +73,31 @@ String getHomeDir() {
   }
   return home;
 }
+
+/// Retrieves the application name from the main.cpp file.
+///
+/// Takes the path of the current directory, concatenates it with the
+/// subdirectories 'windows/runner', and reads the contents of 'main.cpp'
+/// file. It then searches for a line that matches the regex pattern
+/// 'Create(?:AndShow)?\(L"(.*?)"' and returns the first capturing group.
+String? getWindowsAppName() {
+  final String currentDir = Directory.current.path;
+  final String mainCppPath =
+      p.join(currentDir, 'windows', 'runner', 'main.cpp');
+  final File mainCppFile = File(mainCppPath);
+
+  if (!mainCppFile.existsSync()) {
+    return null;
+  }
+
+  final List<String> lines = mainCppFile.readAsLinesSync();
+  for (String line in lines) {
+    final RegExp regex = RegExp(r'Create(?:AndShow)?\(L"(.*?)"');
+    final Match? match = regex.firstMatch(line);
+    if (match != null) {
+      return match.group(1)?.trim();
+    }
+  }
+
+  return null;
+}

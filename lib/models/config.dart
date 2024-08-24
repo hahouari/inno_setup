@@ -16,6 +16,9 @@ class Config {
   /// The global pubspec name attribute, same name of the exe generated from flutter build.
   final String pubspecName;
 
+  /// Windows desktopapplication name.
+  final String windowsAppName;
+
   /// The name of the app after packaging.
   final String name;
 
@@ -66,6 +69,7 @@ class Config {
     required this.buildArgs,
     required this.id,
     required this.pubspecName,
+    required this.windowsAppName,
     required this.name,
     required this.description,
     required this.version,
@@ -79,7 +83,7 @@ class Config {
     required this.licenseFile,
     this.type = BuildType.debug,
     this.app = true,
-    this.installer = true, 
+    this.installer = true,
   });
 
   /// The name of the executable file that is created with flutter build.
@@ -121,11 +125,17 @@ class Config {
     }
     final String pubspecName = json['name'];
 
+    if (getWindowsAppName() is! String) {
+      CliLogger.exitError("windows app name is missing from windows/runner/main.cpp");
+    }
+
+    final String windowsAppName = getWindowsAppName()!;
+
     if (inno['name'] != null && !validFilenameRegex.hasMatch(inno['name'])) {
       CliLogger.exitError("inno_bundle.name from pubspec.yaml is not valid. "
           "`${inno['name']}` is not a valid file name.");
     }
-    final String name = inno['name'] ?? pubspecName;
+    final String name = inno['name'] ?? getWindowsAppName() ?? pubspecName;
 
     if ((appVersion ?? inno['version'] ?? json['version']) is! String) {
       CliLogger.exitError("version attribute is missing from pubspec.yaml.");
@@ -207,6 +217,7 @@ class Config {
       buildArgs: buildArgs,
       id: id,
       pubspecName: pubspecName,
+      windowsAppName: windowsAppName,
       name: name,
       description: description,
       version: version,
