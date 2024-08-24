@@ -40,7 +40,7 @@ class Config {
   /// The path to the installer icon file.
   final String installerIcon;
 
-  // The path to the license file.
+  // The path to the text license file.
   final String licenseFile;
 
   /// The supported languages for the installer.
@@ -79,7 +79,7 @@ class Config {
     required this.licenseFile,
     this.type = BuildType.debug,
     this.app = true,
-    this.installer = true, 
+    this.installer = true,
   });
 
   /// The name of the executable file that is created with flutter build.
@@ -187,21 +187,18 @@ class Config {
     final bool admin = inno['admin'] ?? true;
 
     if (inno['license_file'] != null && inno['license_file'] is! String) {
-      CliLogger.exitError("inno_bundle.installer_icon attribute is invalid "
+      CliLogger.exitError("inno_bundle.license_file attribute is invalid "
           "in pubspec.yaml.");
     }
 
-    final licenseFile = File(inno['license_file'] != null
-                ? p.join(
-                    Directory.current.path, p.fromUri(inno['license_file']))
-                : p.join(Directory.current.path, 'LICENSE'))
-            .existsSync()
-        ? File(inno['license_file'] != null
-                ? p.join(
-                    Directory.current.path, p.fromUri(inno['license_file']))
-                : p.join(Directory.current.path, 'LICENSE'))
-            .path
-        : "";
+    final licenseFilePath = p.join(
+      Directory.current.path,
+      inno['license_file'] != null
+          ? p.fromUri(inno['license_file'])
+          : 'LICENSE',
+    );
+    final licenseFile =
+        File(licenseFilePath).existsSync() ? licenseFilePath : '';
 
     return Config(
       buildArgs: buildArgs,
