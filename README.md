@@ -110,13 +110,13 @@ All attributes should be under `inno_bundle` in `pubspec.yaml`.
   to <a href="https://github.com/hahouari/inno_bundle/blob/dev/example/demo_app/assets/images/installer.ico" target="_blank">
   installer icon</a> provided with the demo.<sup><a href="#attributes-more-1">
   &nbsp;1&nbsp;</a></sup>
-- `languages`: List of installer's display languages. Defaults to all available
-  languages.<sup><a href="#attributes-more-2">&nbsp;2&nbsp;</a></sup>
+- `languages`: List of installer's display languages. Defaults to all available languages.<sup><a href="#attributes-more-2">&nbsp;2&nbsp;</a></sup>
 - `admin`: (`true` or `false`) Defaults to `true`.
   - `true`: Require elevated privileges during installation. App will install
     globally on the end user machine.
   - `false`: Don't require elevated privileges during installation. App will
     install into user-specific folder.
+- `license_file`: A path relative to the project that points to a text license file, if not provided, `inno_bundle` will look up for `LICENSE` file in your project root folder. Otherwise, it is set to an empty string.
 
 <span id="attributes-more-1"><sup>1</sup></span> Only **.ico** images were
 tested.
