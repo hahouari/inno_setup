@@ -54,7 +54,7 @@ String capitalize(String value) {
 String persistDefaultInstallerIcon(String dirPath) {
   Directory(dirPath).createSync();
   final iconPath = p.join(dirPath, defaultInstallerIconFileName);
-  File file = File(iconPath);
+  final file = File(iconPath);
   Uint8List bytes = base64.decode(defaultInstallerIcon);
   file.writeAsBytesSync(bytes);
   return file.absolute.path;

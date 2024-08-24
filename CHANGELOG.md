@@ -107,3 +107,15 @@
 - Add Inno Setup installation step through `Chocolatey`.
 
 - Improve error messages and suggest repo link as guide for corrupted installs of Inno Setup.
+
+## 0.6.1
+
+- Fix `admin` attribute was not resolving correctly from `pubspec.yaml`.
+
+- Add `license_file` attribute to `inno_bundle` section to accommodate software license file.
+
+- Look up project root folder for `LICENSE` file if `license_file` attribute is not provided.
+
+- Change default checked to `true` for for add desktop icon checkbox.
+
+- Optimize published library size by excluding installer ico and svg files.
