@@ -28,6 +28,7 @@ class ScriptBuilder {
     final privileges = config.admin ? 'admin' : 'lowest';
     final installerName = '${camelCase(name)}-x86_64-$version-Installer';
     final licenseFile = config.licenseFile;
+    final signTool = config.signTool;
     var installerIcon = config.installerIcon;
     var uninstallIcon = "{app}\\${config.exeName}";
 
@@ -69,6 +70,7 @@ WizardStyle=modern
 ArchitecturesInstallIn64BitMode=x64
 DisableDirPage=auto
 DisableProgramGroupPage=auto
+${signTool.isNotEmpty ? 'SignTool=$signTool' : ''}
 \n''';
   }
 

@@ -43,6 +43,9 @@ class Config {
   // The path to the text license file.
   final String licenseFile;
 
+  // The name or commmand to be used to digitally sign the installer.
+  final String signTool;
+
   /// The supported languages for the installer.
   final List<Language> languages;
 
@@ -77,6 +80,7 @@ class Config {
     required this.languages,
     required this.admin,
     required this.licenseFile,
+    required this.signTool,
     this.type = BuildType.debug,
     this.app = true,
     this.installer = true,
@@ -200,6 +204,8 @@ class Config {
     final licenseFile =
         File(licenseFilePath).existsSync() ? licenseFilePath : '';
 
+    final signTool = (inno['sign_tool'] ?? "") as String;
+
     return Config(
       buildArgs: buildArgs,
       id: id,
@@ -218,6 +224,7 @@ class Config {
       app: app,
       installer: installer,
       licenseFile: licenseFile,
+      signTool: signTool,
     );
   }
 
