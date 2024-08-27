@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:inno_bundle/models/config.dart';
+import 'package:inno_bundle/models/admin_mode.dart';
 import 'package:inno_bundle/utils/cli_logger.dart';
 import 'package:inno_bundle/utils/constants.dart';
 import 'package:inno_bundle/utils/functions.dart';
@@ -18,59 +19,48 @@ class ScriptBuilder {
   ScriptBuilder(this.config, this.appDir);
 
   String _setup() {
-    final id = config.id;
-    final name = config.name;
-    final version = config.version;
-    final publisher = config.publisher;
-    final url = config.url;
-    final supportUrl = config.supportUrl;
-    final updatesUrl = config.updatesUrl;
-    final privileges = config.admin ? 'admin' : 'lowest';
-    final installerName = '${camelCase(name)}-x86_64-$version-Installer';
-    final licenseFile = config.licenseFile;
-    final signTool = config.signTool;
-    var installerIcon = config.installerIcon;
-    var uninstallIcon = "{app}\\${config.exeName}";
-
     final outputDir = p.joinAll([
       Directory.current.path,
       ...installerBuildDir,
       config.type.dirName,
     ]);
 
+    var installerIcon = config.installerIcon;
     // save default icon into temp directory to use its path.
     if (installerIcon == defaultInstallerIconPlaceholder) {
       final installerIconDirPath = p.joinAll([
         Directory.systemTemp.absolute.path,
-        "${camelCase(name)}Installer",
+        "${camelCase(config.name)}Installer",
       ]);
       installerIcon = persistDefaultInstallerIcon(installerIconDirPath);
     }
 
     return '''
 [Setup]
-AppId=$id
-AppName=$name
-UninstallDisplayName=$name
-UninstallDisplayIcon=$uninstallIcon
-AppVersion=$version
-AppPublisher=$publisher
-AppPublisherURL=$url
-AppSupportURL=$supportUrl
-AppUpdatesURL=$updatesUrl
-LicenseFile=$licenseFile
-DefaultDirName={autopf}\\$name
-PrivilegesRequired=$privileges
+AppId=${config.id}
+AppName=${config.name}
+UninstallDisplayName=${config.name}
+UninstallDisplayIcon={app}\\${config.exeName}
+AppVersion=${config.version}
+AppPublisher=${config.publisher}
+AppPublisherURL=${config.url}
+AppSupportURL=${config.supportUrl}
+AppUpdatesURL=${config.updatesUrl}
+LicenseFile=${config.licenseFile}
+DefaultDirName={autopf}\\${config.name}
+PrivilegesRequired=${config.admin == AdminMode.nonAdmin ? 'lowest' : 'admin'}
+PrivilegesRequiredOverridesAllowed=${config.admin == AdminMode.auto ? "dialog commandline" : ""}
 OutputDir=$outputDir
-OutputBaseFilename=$installerName
+OutputBaseFilename=${camelCase(config.name)}-${config.arch.cpu}-${config.version}-Installer
 SetupIconFile=$installerIcon
 Compression=lzma2/max
 SolidCompression=yes
 WizardStyle=modern
-ArchitecturesInstallIn64BitMode=x64
+ArchitecturesAllowed=${config.arch.value}
+ArchitecturesInstallIn64BitMode=${config.arch.value}
 DisableDirPage=auto
 DisableProgramGroupPage=auto
-${signTool.isNotEmpty ? 'SignTool=$signTool' : ''}
+${config.signTool.isNotEmpty ? 'SignTool=${config.signTool}' : ''}
 \n''';
   }
 
@@ -97,7 +87,7 @@ Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{
   }
 
   String _files() {
-    String section = "[Files]\n";
+    var section = "[Files]\n";
 
     // adding app build files
     final files = appDir.listSync();
@@ -143,21 +133,17 @@ Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{
   }
 
   String _icons() {
-    final name = config.name;
-    final exeName = config.exeName;
     return '''
 [Icons]
-Name: "{autoprograms}\\$name"; Filename: "{app}\\$exeName"
-Name: "{autodesktop}\\$name"; Filename: "{app}\\$exeName"; Tasks: desktopicon
+Name: "{autoprograms}\\${config.name}"; Filename: "{app}\\${config.exeName}"
+Name: "{autodesktop}\\${config.name}"; Filename: "{app}\\${config.exeName}"; Tasks: desktopicon
 \n''';
   }
 
   String _run() {
-    final name = config.name;
-    final exeName = config.exeName;
     return '''
 [Run]
-Filename: "{app}\\$exeName"; Description: "{cm:LaunchProgram,{#StringChange('$name', '&', '&&')}}"; Flags: nowait postinstall skipifsilent
+Filename: "{app}\\${config.exeName}"; Description: "{cm:LaunchProgram,{#StringChange('${config.name}', '&', '&&')}}"; Flags: nowait postinstall skipifsilent
 \n''';
   }
 

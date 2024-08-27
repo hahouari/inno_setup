@@ -14,10 +14,10 @@ enum BuildType {
   ///
   /// Prioritizes `release` over `profile` over `debug` if multiple flags are present.
   static BuildType fromArgs(ArgResults args) {
-    return args[BuildType.release.name]
-        ? BuildType.release
-        : args[BuildType.profile.name]
-            ? BuildType.profile
-            : BuildType.debug;
+    return args[release.name]
+        ? release
+        : args[profile.name]
+            ? profile
+            : debug;
   }
 }

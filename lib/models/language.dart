@@ -34,8 +34,8 @@ enum Language {
 
   /// Retrieves a [Language] instance by its name, or `null` if not found.
   static Language? getByNameOrNull(String name) {
-    final index = Language.values.indexWhere((l) => l.name == name);
-    return index != -1 ? Language.values[index] : null;
+    final index = values.indexWhere((l) => l.name == name);
+    return index != -1 ? values[index] : null;
   }
 
   /// Generates the Inno Setup language item for this language.

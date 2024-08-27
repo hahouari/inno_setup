@@ -91,5 +91,10 @@ inno_bundle:
   installer_icon: assets/images/installer.ico
   license_file: assets/LICENSE.txt
   languages:
+    - english
     - french
-  sign_tool: "signtool.exe sign /tr http://timestamp.digicert.com /td sha256 /fd sha256 /a $p $f"
+  admin: auto
+  arch: x64_compatible
+  # sign_tool:
+  #   name: MySignTool
+  #   command: "signtool.exe sign /tr http://timestamp.digicert.com /td sha256 /fd sha256 /a $p $f"

@@ -1,6 +1,8 @@
 import 'dart:io';
+import 'package:inno_bundle/models/build_arch.dart';
 import 'package:inno_bundle/models/build_type.dart';
 import 'package:inno_bundle/models/language.dart';
+import 'package:inno_bundle/models/admin_mode.dart';
 import 'package:inno_bundle/utils/cli_logger.dart';
 import 'package:inno_bundle/utils/constants.dart';
 import 'package:inno_bundle/utils/functions.dart';
@@ -50,7 +52,7 @@ class Config {
   final List<Language> languages;
 
   /// Whether the installer requires administrator privileges.
-  final bool admin;
+  final AdminMode admin;
 
   /// The build type (debug or release).
   final BuildType type;
@@ -60,6 +62,9 @@ class Config {
 
   /// Whether to create an installer file.
   final bool installer;
+
+  /// CPU Architecture supported by the app and installer to run on.
+  final BuildArch arch;
 
   /// Arguments to be passed to flutter build.
   final String? buildArgs;
@@ -81,6 +86,7 @@ class Config {
     required this.admin,
     required this.licenseFile,
     required this.signTool,
+    required this.arch,
     this.type = BuildType.debug,
     this.app = true,
     this.installer = true,
@@ -183,12 +189,13 @@ class Config {
         }).toList(growable: false) ??
         Language.values;
 
-    if (inno['admin'] != null && inno['admin'] is! bool) {
-      CliLogger.exitError(
-          "inno_bundle.admin attribute is invalid boolean value "
+    if (inno['admin'] != null &&
+        inno['admin'] is! bool &&
+        inno['admin'] != "auto") {
+      CliLogger.exitError("inno_bundle.admin attribute is invalid value "
           "in pubspec.yaml");
     }
-    final bool admin = inno['admin'] ?? true;
+    final admin = AdminMode.fromOption(inno['admin'] ?? true);
 
     if (inno['license_file'] != null && inno['license_file'] is! String) {
       CliLogger.exitError("inno_bundle.license_file attribute is invalid "
@@ -205,6 +212,14 @@ class Config {
         File(licenseFilePath).existsSync() ? licenseFilePath : '';
 
     final signTool = (inno['sign_tool'] ?? "") as String;
+
+    if (inno['arch'] != null &&
+        inno['arch'] is! String &&
+        !BuildArch.acceptedStringValues.contains(inno['arch'])) {
+      CliLogger.exitError("inno_bundle.arch attribute is invalid value "
+          "in pubspec.yaml");
+    }
+    final arch = BuildArch.fromOption(inno['arch']);
 
     return Config(
       buildArgs: buildArgs,
@@ -225,6 +240,7 @@ class Config {
       installer: installer,
       licenseFile: licenseFile,
       signTool: signTool,
+      arch: arch,
     );
   }
 
