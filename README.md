@@ -15,7 +15,7 @@ capabilities.
 
 The easiest way to install latest version of Inno Setup is using WinGet:
 
-```ps
+```sh
 winget install -e --id JRSoftware.InnoSetup
 ```
 
@@ -25,7 +25,7 @@ _Note: This package is tested on Inno Setup version `6.3.3`._
 
 ## 2. Install `inno_bundle` package into your project
 
-```ps
+```sh
 dart pub add dev:inno_bundle
 ```
 
@@ -33,7 +33,7 @@ dart pub add dev:inno_bundle
 
 Every application has its own unique GUID, here is how to generate one:
 
-```ps
+```sh
 # generate id based upon a namespace (Recommended)
 dart run inno_bundle:id --ns "www.example.com"
 
@@ -64,7 +64,7 @@ For more advanced configuration with examples, see [Configuration Options](https
 
 After setting up the configuration, all that is left to do is run the build command
 
-```ps
+```sh
 dart run inno_bundle:build --release
 ```
 
