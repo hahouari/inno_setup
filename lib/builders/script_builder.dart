@@ -60,7 +60,7 @@ ArchitecturesAllowed=${config.arch.value}
 ArchitecturesInstallIn64BitMode=${config.arch.value}
 DisableDirPage=auto
 DisableProgramGroupPage=auto
-${config.signTool.isNotEmpty ? 'SignTool=${config.signTool}' : ''}
+${config.signTool != null ? config.signTool?.inno : ""}
 \n''';
   }
 

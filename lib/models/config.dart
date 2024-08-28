@@ -3,6 +3,7 @@ import 'package:inno_bundle/models/build_arch.dart';
 import 'package:inno_bundle/models/build_type.dart';
 import 'package:inno_bundle/models/language.dart';
 import 'package:inno_bundle/models/admin_mode.dart';
+import 'package:inno_bundle/models/sign_tool.dart';
 import 'package:inno_bundle/utils/cli_logger.dart';
 import 'package:inno_bundle/utils/constants.dart';
 import 'package:inno_bundle/utils/functions.dart';
@@ -46,7 +47,7 @@ class Config {
   final String licenseFile;
 
   // The name or commmand to be used to digitally sign the installer.
-  final String signTool;
+  final SignTool? signTool;
 
   /// The supported languages for the installer.
   final List<Language> languages;
@@ -211,13 +212,15 @@ class Config {
     final licenseFile =
         File(licenseFilePath).existsSync() ? licenseFilePath : '';
 
-    final signTool = (inno['sign_tool'] ?? "") as String;
+    final signToolError = SignTool.validationError(inno["sign_tool"]);
+    if (signToolError != null) {
+      CliLogger.exitError(signToolError);
+    }
+    final signTool = SignTool.fromOption(inno['sign_tool']);
 
-    if (inno['arch'] != null &&
-        inno['arch'] is! String &&
-        !BuildArch.acceptedStringValues.contains(inno['arch'])) {
-      CliLogger.exitError("inno_bundle.arch attribute is invalid value "
-          "in pubspec.yaml");
+    final archError = BuildArch.validationError(inno['arch']);
+    if (archError != null) {
+      CliLogger.exitError(archError);
     }
     final arch = BuildArch.fromOption(inno['arch']);
 

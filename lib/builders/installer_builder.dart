@@ -53,10 +53,14 @@ class InstallerBuilder {
     }
 
     final execFile = _getInnoSetupExec();
+    var params = [scriptFile.path];
+    if (config.signTool != null && config.signTool!.command.isNotEmpty) {
+      params.add('/S${config.signTool!.name}=${config.signTool!.command}');
+    }
 
     final process = await Process.start(
       execFile.path,
-      [scriptFile.path],
+      params,
       runInShell: true,
       workingDirectory: Directory.current.path,
       mode: ProcessStartMode.inheritStdio,

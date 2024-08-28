@@ -10,6 +10,15 @@ enum BuildArch {
 
   static final acceptedStringValues = ["x64", "x64_compatible"];
 
+  /// Validate configuration option for [BuildArch]
+  static String? validationError(dynamic option) {
+    if (option == null) return null;
+    if (option is String && BuildArch.acceptedStringValues.contains(option)) {
+      return null;
+    }
+    return "inno_bundle.sign_tool attribute is invalid in pubspec.yaml.";
+  }
+
   /// Parses configuration option to the desired [BuildArch].
   static BuildArch fromOption(String? option) {
     return option == 'x64' ? x64 : x64Compatible;
