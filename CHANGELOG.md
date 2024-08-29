@@ -149,3 +149,7 @@
 - Add `korean` language support.
 
 - Improve file-level documentation.
+
+## 0.7.2
+
+- More docs, trying to top up the [package score](https://pub.dev/packages/inno_bundle/score).
