@@ -16,6 +16,7 @@ enum Language {
   icelandic("Languages\\Icelandic.isl"),
   italian("Languages\\Italian.isl"),
   japanese("Languages\\Japanese.isl"),
+  korean("Languages\\Korean.isl"),
   norwegian("Languages\\Norwegian.isl"),
   polish("Languages\\Polish.isl"),
   portuguese("Languages\\Portuguese.isl"),
