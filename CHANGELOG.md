@@ -141,3 +141,5 @@
 
 - Add `--sign-tool-name`, `--sign-tool-command`, `--sign-tool-params` CLI parameters
   to partially override `sign_tool` attribute.
+
+- Trivial update to packages versions.
