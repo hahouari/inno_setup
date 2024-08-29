@@ -56,10 +56,10 @@ class Config {
   /// The path to the installer icon file.
   final String installerIcon;
 
-  // The path to the text license file.
+  /// The path to the text license file.
   final String licenseFile;
 
-  // The name or commmand to be used to digitally sign the installer.
+  /// The name or commmand to be used to digitally sign the installer.
   final SignTool? signTool;
 
   /// The supported languages for the installer.

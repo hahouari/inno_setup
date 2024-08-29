@@ -1,3 +1,6 @@
+/// Utility functions for handling YAML, string manipulation, file operations, and system environment.
+library;
+
 import 'dart:convert';
 import 'dart:io';
 import 'dart:typed_data';
@@ -6,7 +9,7 @@ import 'package:inno_bundle/utils/installer_icon.dart';
 import 'package:yaml/yaml.dart';
 import 'package:path/path.dart' as p;
 
-/// Convert yaml to map
+/// Convert yaml to map, this prevents some weird behaviors that come with [YamlMap] type.
 Map<String, dynamic> yamlToMap(YamlMap yamlMap) {
   final map = <String, dynamic>{};
   for (final entry in yamlMap.entries) {

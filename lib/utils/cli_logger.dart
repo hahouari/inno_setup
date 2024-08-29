@@ -1,3 +1,10 @@
+/// Provides a CLI logging utility with various log levels and colored output.
+///
+/// The `CliLogger` class offers methods for logging messages with different severity levels,
+/// including `info`, `error`, `warning`, `success`, and `sLink` for logging links. It supports
+/// customizable log levels and provides color-coded output using ANSI escape codes.
+library;
+
 import 'dart:io';
 
 /// Log levels

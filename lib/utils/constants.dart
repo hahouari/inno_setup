@@ -1,5 +1,13 @@
 // ignore_for_file: constant_identifier_names
 
+/// Contains various constants and utility values used throughout the Inno Bundle package.
+///
+/// This file includes:
+/// - Messages displayed in the CLI during different stages of the build process.
+/// - Paths for directories and files used during the build and installation process.
+/// - Globally used regular expressions.
+library;
+
 import 'package:inno_bundle/utils/functions.dart';
 
 /// Start message for the CLI
@@ -30,13 +38,27 @@ const String GUID_END_MESSAGE = '''\n
                   ❤️  THANK YOU!  ❤️
 ''';
 
+/// GitHub link for documentation on how to download and install Inoo Setup.
 const readmeDownloadStepLink = "https://github.com/hahouari/inno_bundle"
     "?tab=readme-ov-file#1-install-inno-setup";
+
+/// Relative build directory path for x64 windows app.
 const appBuildDir = ["build", "windows", "x64", "runner"];
+
+/// Relative output directory path for x64 windows installer.
 const installerBuildDir = ["build", "windows", "x64", "installer"];
+
+/// System32 directory path for MS Windows.
 const system32 = ["C:", "Windows", "System32"];
+
+/// List of DLL files that must be included to avoid missing dll files issue for users.
+/// See https://github.com/hahouari/inno_bundle/wiki/Handling-Missing-DLL-Files.
 const vcDllFiles = ["msvcp140.dll", "vcruntime140.dll", "vcruntime140_1.dll"];
+
+/// Inno Setup installation path when installed on the system level.
 const innoSysDirPath = ["C:", "Program Files (x86)", "Inno Setup 6"];
+
+/// Inno Setup installation path when installed on user-specific level.
 final innoUserDirPath = [
   getHomeDir(),
   "AppData",
@@ -45,6 +67,9 @@ final innoUserDirPath = [
   "Inno Setup 6"
 ];
 
+/// Placeholder used by inno_bundle to signify that the default installer icon should be used.
 const defaultInstallerIconPlaceholder = "__default_installer__icon__";
 
+/// Regex for filenames and directories.
+/// used to make sure some generated files do not have special characters in the names.
 final validFilenameRegex = RegExp(r'^[^<>:"/\\|?*\x00-\x1F]+$');
