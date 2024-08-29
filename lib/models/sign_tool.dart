@@ -1,9 +1,55 @@
+/// A class that holds the properties related to the signing tool used by Inno Setup,
+/// based on the directives in the Setup section.
+///
+/// The [SignTool] class encapsulates details such as the tool's name, the command
+/// used to invoke it, additional parameters, and retry configurations. It also provides
+/// methods for validating and parsing configuration options to create an instance of [SignTool].
+///
+/// Example usage:
+/// ```dart
+/// var signTool = SignTool(
+///   name: "MySignTool",
+///   command: "signtool.exe $p",
+///   params: "/a /tr http://timestamp.url",
+///   retryCount: 2,
+///   retryDelay: 200,
+/// );
+///
+/// print(signTool.inno);
+/// // Outputs:
+/// // SignTool=MySignTool /a /tr http://timestamp.url
+/// // SignToolRetryCount=2
+/// // SignToolRetryDelay=200
+/// ```
+///
+/// Properties:
+/// - [name]: The name of the signing tool.
+/// - [command]: The command used to invoke the signing tool.
+/// - [params]: Additional parameters passed to the signing tool.
+/// - [retryCount]: The number of times to retry the signing operation on failure.
+/// - [retryDelay]: The delay in milliseconds between retry attempts.
+///
+/// Methods:
+/// - [validationError]: Validates the configuration option for [SignTool]. Returns a string describing the error, or `null` if valid.
+/// - [fromOption]: Parses the configuration option into a [SignTool] instance. Accepts both string and map formats.
+/// - [inno]: Generates the Inno Setup script directives for the signing tool configuration.
+library;
+
 /// Class holding the sign tool properties based on Inno Setup approach and Setup section directives
 class SignTool {
+  /// The name of the signing tool.
   final String name;
+
+  /// The command used to invoke the signing tool.
   final String command;
+
+  /// Additional parameters passed to the signing tool.
   final String params;
+
+  /// The number of times to retry the signing operation on failure.
   final int retryCount;
+
+  /// The delay in milliseconds between retry attempts.
   final int retryDelay;
 
   const SignTool({
@@ -41,9 +87,6 @@ class SignTool {
     String? signToolCommand,
     String? signToolParams,
   }) {
-    // print(option);
-    // print(signToolParams);
-    // exit(0);
     if (option == null) {
       if (signToolName != null ||
           signToolCommand != null ||

@@ -1,3 +1,23 @@
+/// This file contains the [ScriptBuilder] class, which is responsible for generating
+/// the Inno Setup Script (ISS) file for creating the installer of an application.
+///
+/// The [ScriptBuilder] class takes a [Config] object and an [appDir] directory as inputs
+/// and generates the ISS script based on the provided configuration. This script defines
+/// various sections like setup, files, icons, tasks, and languages, among others.
+///
+/// Key methods:
+/// - [_setup]: Generates the `[Setup]` section of the ISS script.
+/// - [_installDelete]: Generates the `[InstallDelete]` section.
+/// - [_languages]: Generates the `[Languages]` section.
+/// - [_tasks]: Generates the `[Tasks]` section.
+/// - [_files]: Generates the `[Files]` section.
+/// - [_icons]: Generates the `[Icons]` section.
+/// - [_run]: Generates the `[Run]` section.
+///
+/// The [build] method is the main method of this class, which combines all the sections and writes
+/// the complete ISS script to a file. It returns the generated script file.
+library;
+
 import 'dart:io';
 
 import 'package:inno_bundle/models/config.dart';
@@ -18,6 +38,8 @@ class ScriptBuilder {
   /// Creates a [ScriptBuilder] instance with the given [config] and [appDir].
   ScriptBuilder(this.config, this.appDir);
 
+  /// Generates the `[Setup]` section of the ISS script, containing metadata and
+  /// configuration for the installer.
   String _setup() {
     final outputDir = p.joinAll([
       Directory.current.path,
@@ -64,6 +86,7 @@ ${config.signTool != null ? config.signTool?.inno : ""}
 \n''';
   }
 
+  /// Generates the `[InstallDelete]` section for specifying files to delete during uninstallation.
   String _installDelete() {
     return '''
 [InstallDelete]
@@ -71,6 +94,7 @@ Type: filesandordirs; Name: "{app}\\*"
 \n''';
   }
 
+  /// Generates the `[Languages]` section, defining the languages supported by the installer.
   String _languages() {
     String section = "[Languages]\n";
     for (final language in config.languages) {
@@ -79,6 +103,7 @@ Type: filesandordirs; Name: "{app}\\*"
     return '$section\n';
   }
 
+  /// Generates the `[Tasks]` section, defining additional installation tasks such as creating desktop icons.
   String _tasks() {
     return '''
 [Tasks]
@@ -86,6 +111,7 @@ Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{
 \n''';
   }
 
+  /// Generates the `[Files]` section, specifying the files and directories to include in the installer.
   String _files() {
     var section = "[Files]\n";
 
@@ -132,6 +158,7 @@ Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{
     return '$section\n';
   }
 
+  /// Generates the `[Icons]` section, defining the shortcuts for the installed application.
   String _icons() {
     return '''
 [Icons]
@@ -140,6 +167,7 @@ Name: "{autodesktop}\\${config.name}"; Filename: "{app}\\${config.exeName}"; Tas
 \n''';
   }
 
+  /// Generates the `[Run]` section, specifying actions to perform after the installation is complete.
   String _run() {
     return '''
 [Run]

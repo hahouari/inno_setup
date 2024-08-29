@@ -1,3 +1,23 @@
+/// Represents the different languages supported by the Inno Setup installer.
+///
+/// Each language is associated with a specific Inno Setup language file,
+/// which defines the localized text and messages for the installer.
+///
+/// Example usage:
+/// ```dart
+/// var language = Language.french;
+/// print(language.toInnoItem()); // Outputs: Name: "french"; MessagesFile: "compiler:Languages\\French.isl"
+/// ```
+///
+/// Properties:
+/// - [file]: The filename of the language-specific Inno Setup language file.
+///
+/// Methods:
+/// - [getByNameOrNull]: Retrieves a [Language] instance by its name, or `null` if not found.
+/// - [toInnoItem]: Generates the Inno Setup language item for this language,
+///   formatted for inclusion in an Inno Setup script.
+library;
+
 enum Language {
   english("Default.isl"),
   armenian("Languages\\Armenian.isl"),

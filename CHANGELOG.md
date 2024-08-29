@@ -143,3 +143,9 @@
   to partially override `sign_tool` attribute.
 
 - Trivial update to packages versions.
+
+## 0.7.1
+
+- Add `korean` language support.
+
+- Improve file-level documentation.
