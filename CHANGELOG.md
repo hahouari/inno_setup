@@ -90,7 +90,8 @@
 
 - Update packages and lower back minimum dart and flutter versions.
 
-- rework usage of app name and pubspec name props. See [#2](https://github.com/hahouari/inno_bundle/issues/2).
+- rework usage of app name and pubspec name props.
+  See [#2](https://github.com/hahouari/inno_bundle/issues/2).
 
 ## 0.6.0
 
@@ -110,12 +111,33 @@
 
 ## 0.6.1
 
-- Fix `admin` attribute was not resolving correctly from `pubspec.yaml`.
+- Fix `admin` attribute was not resolving correctly from `pubspec.yaml`
+  [#4](https://github.com/hahouari/inno_bundle/pull/4).
 
-- Add `license_file` attribute to `inno_bundle` section to accommodate software license file.
+- Add `license_file` attribute to `inno_bundle` section to accommodate software license file
+  [#5](https://github.com/hahouari/inno_bundle/pull/5).
 
 - Look up project root folder for `LICENSE` file if `license_file` attribute is not provided.
 
 - Change default checked to `true` for for add desktop icon checkbox.
 
 - Optimize published library size by excluding installer ico and svg files.
+
+## 0.7.0
+
+- **`(Breaking!)`** Move to Inno Setup version `6.3.3`.
+
+- Add `auto` value to `admin` attribute.
+
+- Add `arch` attribute to enable or disable x64 emulation on Arm devices.
+
+- Rewrite `README.md` into much smaller version.
+
+- Move configuration details and examples to
+  [GitHub Wiki](https://github.com/hahouari/inno_bundle/wiki).
+
+- Add `sign_tool` field to sign installer and uninstaller
+  [#7](https://github.com/hahouari/inno_bundle/pull/7)
+
+- Add `--sign-tool-name`, `--sign-tool-command`, `--sign-tool-params` CLI parameters
+  to partially override `sign_tool` attribute.
