@@ -121,7 +121,8 @@ class SignTool {
     );
   }
 
-  String get inno {
+  /// Get inno setup code based on this [SignTool] values.
+  String toInnoCode() {
     return """
 SignTool=$name $params
 SignToolRetryCount=$retryCount

@@ -82,7 +82,7 @@ ArchitecturesAllowed=${config.arch.value}
 ArchitecturesInstallIn64BitMode=${config.arch.value}
 DisableDirPage=auto
 DisableProgramGroupPage=auto
-${config.signTool != null ? config.signTool?.inno : ""}
+${config.signTool != null ? config.signTool?.toInnoCode() : ""}
 \n''';
   }
 

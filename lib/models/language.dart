@@ -18,6 +18,7 @@
 ///   formatted for inclusion in an Inno Setup script.
 library;
 
+/// Language enum holding every supported language that comes shipped with Inno Setup.
 enum Language {
   english("Default.isl"),
   armenian("Languages\\Armenian.isl"),
