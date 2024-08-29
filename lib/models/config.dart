@@ -1,3 +1,16 @@
+/// This file contains the [Config] class, which represents the configuration
+/// for building a Windows installer using Inno Setup.
+///
+/// The [Config] class holds various attributes necessary for the build process,
+/// including application-specific details such as ID, name, description, and version.
+/// It also includes build-related settings like the installer icon, languages,
+/// administrator mode, and whether to include the app or create an installer file.
+///
+/// This file provides methods to create a [Config] instance from JSON or directly
+/// from the `pubspec.yaml` file, as well as a method to convert the configuration
+/// attributes into environment variables for further use.
+library;
+
 import 'dart:io';
 import 'package:inno_bundle/models/build_arch.dart';
 import 'package:inno_bundle/models/build_type.dart';
@@ -109,6 +122,9 @@ class Config {
     bool installer = true,
     required String? buildArgs,
     required String? appVersion,
+    required String? signToolName,
+    required String? signToolCommand,
+    required String? signToolParams,
   }) {
     if (json['inno_bundle'] is! Map<String, dynamic>) {
       CliLogger.exitError("inno_bundle section is missing from pubspec.yaml.");
@@ -212,11 +228,21 @@ class Config {
     final licenseFile =
         File(licenseFilePath).existsSync() ? licenseFilePath : '';
 
-    final signToolError = SignTool.validationError(inno["sign_tool"]);
+    final signToolError = SignTool.validationError(
+      inno["sign_tool"],
+      signToolName: signToolName,
+      signToolCommand: signToolCommand,
+      signToolParams: signToolParams,
+    );
     if (signToolError != null) {
       CliLogger.exitError(signToolError);
     }
-    final signTool = SignTool.fromOption(inno['sign_tool']);
+    final signTool = SignTool.fromOption(
+      inno['sign_tool'],
+      signToolName: signToolName,
+      signToolCommand: signToolCommand,
+      signToolParams: signToolParams,
+    );
 
     final archError = BuildArch.validationError(inno['arch']);
     if (archError != null) {
@@ -256,6 +282,9 @@ class Config {
     bool installer = true,
     required String? buildArgs,
     required String? appVersion,
+    required String? signToolName,
+    required String? signToolCommand,
+    required String? signToolParams,
   }) {
     const filePath = 'pubspec.yaml';
     final yamlMap = loadYaml(File(filePath).readAsStringSync()) as Map;
@@ -268,6 +297,9 @@ class Config {
       installer: installer,
       buildArgs: buildArgs,
       appVersion: appVersion,
+      signToolName: signToolName,
+      signToolCommand: signToolCommand,
+      signToolParams: signToolParams,
     );
   }
 

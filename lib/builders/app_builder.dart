@@ -1,3 +1,12 @@
+/// This file contains the [AppBuilder] class, which is responsible for
+/// orchestrating the build process of the app using a provided configuration.
+///
+/// The [AppBuilder] class uses the [Config] model to determine the build
+/// parameters and executes the Flutter build command accordingly. It also
+/// manages conditions such as skipping the build if a valid build already
+/// exists.
+library;
+
 import 'dart:io';
 
 import 'package:inno_bundle/models/config.dart';

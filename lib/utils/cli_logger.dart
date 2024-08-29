@@ -73,6 +73,7 @@ class CliLogger {
     print('\x1B[32m$space✅  $message\x1B[0m');
   }
 
+  /// Logs a link as a underlined text.
   static String sLink(
     String link, {
     CliLoggerLevel level = CliLoggerLevel.one,

@@ -40,6 +40,9 @@ void main(List<String> arguments) async {
     ..addFlag('installer', defaultsTo: true, help: 'Build installer')
     ..addOption("build-args", help: "Appended to `flutter build`")
     ..addOption("app-version", help: "Override app version")
+    ..addOption("sign-tool-name", help: "Override sign tool name")
+    ..addOption("sign-tool-command", help: "Override sign tool command")
+    ..addOption("sign-tool-params", help: "Override sign tool params")
     ..addFlag(
       'envs',
       defaultsTo: false,
@@ -66,6 +69,9 @@ void main(List<String> arguments) async {
     installer: parsedArgs['installer'],
     buildArgs: parsedArgs['build-args'],
     appVersion: parsedArgs['app-version'],
+    signToolName: parsedArgs['sign-tool-name'],
+    signToolCommand: parsedArgs['sign-tool-command'],
+    signToolParams: parsedArgs['sign-tool-params'],
   );
 
   if (envs) {

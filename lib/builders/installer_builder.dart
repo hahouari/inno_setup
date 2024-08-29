@@ -1,3 +1,12 @@
+/// This file contains the [InstallerBuilder] class, which is responsible for
+/// creating the installer for the application using Inno Setup.
+///
+/// The [InstallerBuilder] class ensures that the Inno Setup executable is properly
+/// installed and accessible on the system, and handles the building of the installer
+/// based on the provided configuration and script file. It also supports signing
+/// the installer if a [SignTool] is configured.
+library;
+
 import 'dart:io';
 
 import 'package:inno_bundle/models/config.dart';
