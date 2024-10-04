@@ -4,6 +4,10 @@
 
 - Reverse `CHANGELOG.md` order.
 
+- Specify platform in `pubspec.yaml` as `windows` only.
+
+- Update `README.md` summary.
+
 ## 0.7.3
 
 - More docs for 100% score on pub.dev documentation.

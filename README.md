@@ -5,9 +5,7 @@
 [![inno setup](https://img.shields.io/badge/Inno_Setup-v6.3.3-blue)](https://jrsoftware.org/isinfo.php)
 ![hahouari-inno-setup](https://img.shields.io/badge/@hahouari-Inno_Setup-blue)
 
-A command-line tool that simplifies bundling your app into an EXE installer for
-Microsoft Windows. Customizable with options to configure the installer
-capabilities.
+CLI tool that simplifies bundling flutter apps into Windows installers using Inno Setup.
 
 # Guide
 
