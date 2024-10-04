@@ -1,97 +1,46 @@
-## 0.0.1
+## 0.7.3
 
-- Add a working bundler and example.
+- More docs for 100% score on pub.dev documentation.
 
-## 0.0.2
+## 0.7.2
 
-- Add a README.md to example and update main README.md.
+- More docs, trying to top up the [package score](https://pub.dev/packages/inno_bundle/score).
 
-## 0.0.3
+## 0.7.1
 
-- Fix `languages` attribute name in README.md example.
+- Add `korean` language support.
 
-## 0.1.0
+- Improve file-level documentation.
 
-- Make `installer_icon` optional attribute.
+## 0.7.0
 
-## 0.1.1
+- **`(Breaking!)`** Move to Inno Setup version `6.3.3`.
 
-- Update README.md.
+- Add `auto` value to `admin` attribute.
 
-## 0.2.0
+- Add `arch` attribute to enable or disable x64 emulation on Arm devices.
 
-- Update default icon, old one is not premissable to use for commercial use
-  without license, so I created new one from **license free** resources.
+- Rewrite `README.md` into much smaller version.
 
-- Clean cuportino icons from example as it is unused.
+- Move configuration details and examples to [GitHub Wiki](https://github.com/hahouari/inno_bundle/wiki).
 
-- Clean `lib\inno_bundle.dart` and `test\inno_bundle_test.dart`.
+- Add `sign_tool` field to sign installer and uninstaller [#7](https://github.com/hahouari/inno_bundle/pull/7).
 
-- When default icon is used, the new one is copied to `%TEMP%` folder on every
-  installer build, I did not find an efficient way to update the old one.
+- Add `--sign-tool-name`, `--sign-tool-command`, `--sign-tool-params` CLI parameters to partially override `sign_tool` attribute.
 
-## 0.3.0
+- Trivial update to packages versions.
 
-- Replace `--skip-app` with `--app` and `--no-app` flags, default to `--app`.
+## 0.6.1
 
-- Add `--installer` and `--no-installer` flags, default to `--installer`.
+- Fix `admin` attribute was not resolving correctly from `pubspec.yaml` [#4](https://github.com/hahouari/inno_bundle/pull/4).
 
-- Add `--help` and `-h` with descriptive messages to each flag.
+- Add `license_file` attribute to `inno_bundle` section to accommodate software license file [#5](https://github.com/hahouari/inno_bundle/pull/5).
 
-- Refactor `Config` to include cli arguments as well.
+- Look up project root folder for `LICENSE` file if `license_file` attribute is not provided.
 
-- Make `.iss script` generation happen under
-  `build\windows\x64\installer\<BuildType>\<AppName>.iss`.
+- Change default checked to `true` for add desktop icon checkbox.
 
-- Add `%UserProfile%\Local\Programs\Inno Setup 6` as a possible path to find
-  Inno Setup installation.
-
-- Update error message for option to install Inno Setup using `winget`
-  when not detected on the machine.
-
-## 0.3.1
-
-- Update README.md for winget installation option of Inno Setup.
-
-- Replace LinkedIn link in maintainer clause for generated `iss script` with
-  GitHub link.
-
-## 0.3.2
-
-- Add documentation to codebase.
-
-## 0.3.3
-
-- Fix issue icon not persisting in the system temp directory when using
-  default installer icon.
-
-- Update iss script maintainer clause.
-
-- Rename generated iss script to `inno-script.iss`.
-
-## 0.4.0
-
-- Add `--hf` and `--no-hf` flags to control printing of header and footer text.
-
-- Add `--envs` to `build` command to print resolved config as environment
-  variables and exit.
-
-- Add `--help` to `id` command.
-
-## 0.4.1
-
-- Add guide to setup GitHub Workflows and automate installer build as GitHub releases.
-
-## 0.4.2
-
-- Update packages version and minimum dart and flutter version to latest.
-
-## 0.5.0
-
-- Update packages and lower back minimum dart and flutter versions.
-
-- rework usage of app name and pubspec name props.
-  See [#2](https://github.com/hahouari/inno_bundle/issues/2).
+- Optimize published library size by excluding installer ico and svg files.
 
 ## 0.6.0
 
@@ -109,51 +58,88 @@
 
 - Improve error messages and suggest repo link as guide for corrupted installs of Inno Setup.
 
-## 0.6.1
+## 0.5.0
 
-- Fix `admin` attribute was not resolving correctly from `pubspec.yaml`
-  [#4](https://github.com/hahouari/inno_bundle/pull/4).
+- Update packages and lower back minimum dart and flutter versions.
 
-- Add `license_file` attribute to `inno_bundle` section to accommodate software license file
-  [#5](https://github.com/hahouari/inno_bundle/pull/5).
+- Rework usage of app name and pubspec name props. See [#2](https://github.com/hahouari/inno_bundle/issues/2).
 
-- Look up project root folder for `LICENSE` file if `license_file` attribute is not provided.
+## 0.4.2
 
-- Change default checked to `true` for for add desktop icon checkbox.
+- Update packages version and minimum dart and flutter version to latest.
 
-- Optimize published library size by excluding installer ico and svg files.
+## 0.4.1
 
-## 0.7.0
+- Add guide to setup GitHub Workflows and automate installer build as GitHub releases.
 
-- **`(Breaking!)`** Move to Inno Setup version `6.3.3`.
+## 0.4.0
 
-- Add `auto` value to `admin` attribute.
+- Add `--hf` and `--no-hf` flags to control printing of header and footer text.
 
-- Add `arch` attribute to enable or disable x64 emulation on Arm devices.
+- Add `--envs` to `build` command to print resolved config as environment variables and exit.
 
-- Rewrite `README.md` into much smaller version.
+- Add `--help` to `id` command.
 
-- Move configuration details and examples to
-  [GitHub Wiki](https://github.com/hahouari/inno_bundle/wiki).
+## 0.3.3
 
-- Add `sign_tool` field to sign installer and uninstaller
-  [#7](https://github.com/hahouari/inno_bundle/pull/7)
+- Fix issue icon not persisting in the system temp directory when using default installer icon.
 
-- Add `--sign-tool-name`, `--sign-tool-command`, `--sign-tool-params` CLI parameters
-  to partially override `sign_tool` attribute.
+- Update iss script maintainer clause.
 
-- Trivial update to packages versions.
+- Rename generated iss script to `inno-script.iss`.
 
-## 0.7.1
+## 0.3.2
 
-- Add `korean` language support.
+- Add documentation to codebase.
 
-- Improve file-level documentation.
+## 0.3.1
 
-## 0.7.2
+- Update README.md for winget installation option of Inno Setup.
 
-- More docs, trying to top up the [package score](https://pub.dev/packages/inno_bundle/score).
+- Replace LinkedIn link in maintainer clause for generated `iss script` with GitHub link.
 
-## 0.7.3
+## 0.3.0
 
-- More docs for 100% score on pub.dev documentation.
+- Replace `--skip-app` with `--app` and `--no-app` flags, default to `--app`.
+
+- Add `--installer` and `--no-installer` flags, default to `--installer`.
+
+- Add `--help` and `-h` with descriptive messages to each flag.
+
+- Refactor `Config` to include CLI arguments as well.
+
+- Make `.iss script` generation happen under `build\windows\x64\installer\<BuildType>\<AppName>.iss`.
+
+- Add `%UserProfile%\Local\Programs\Inno Setup 6` as a possible path to find Inno Setup installation.
+
+- Update error message for option to install Inno Setup using `winget` when not detected on the machine.
+
+## 0.2.0
+
+- Update default icon, old one is not permissible to use for commercial use without license, so I created new one from **license free** resources.
+
+- Clean cupertino icons from example as it is unused.
+
+- Clean `lib\inno_bundle.dart` and `test\inno_bundle_test.dart`.
+
+- When default icon is used, the new one is copied to `%TEMP%` folder on every installer build. I did not find an efficient way to update the old one.
+
+## 0.1.1
+
+- Update README.md.
+
+## 0.1.0
+
+- Make `installer_icon` optional attribute.
+
+## 0.0.3
+
+- Fix `languages` attribute name in README.md example.
+
+## 0.0.2
+
+- Add a README.md to example and update main README.md.
+
+## 0.0.1
+
+- Add a working bundler and example.
