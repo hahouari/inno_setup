@@ -1,3 +1,9 @@
+## 0.7.4
+
+- Update `uuid` package and replace deprecated `Uuid.NAMESPACE_URL` with `Namespace.url`.
+
+- Reverse `CHANGELOG.md` order.
+
 ## 0.7.3
 
 - More docs for 100% score on pub.dev documentation.
