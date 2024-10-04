@@ -1,7 +1,7 @@
 name: inno_bundle
 description: CLI tool for automating Windows installer creation using Inno Setup.
 maintainer: Hocine Abdellatif Houari
-version: 0.7.3
+version: 0.7.4
 homepage: https://github.com/hahouari/inno_bundle
 
 environment:
@@ -13,10 +13,10 @@ dependencies:
     sdk: flutter
   args: ^2.5.0
   yaml: ^3.1.2
-  uuid: ^4.4.2
+  uuid: ^4.5.1
   path: ^1.9.0
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  flutter_lints: ^4.0.0
+  flutter_lints: ^5.0.0

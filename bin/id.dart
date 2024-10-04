@@ -26,7 +26,7 @@ void main(List<String> arguments) {
   }
 
   if (ns != null) {
-    print(uuid.v5(Namespace.URL, ns));
+    print(uuid.v5(Namespace.url.value, ns));
   } else {
     print(uuid.v1());
   }
