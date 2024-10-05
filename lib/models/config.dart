@@ -12,10 +12,11 @@
 library;
 
 import 'dart:io';
+
+import 'package:inno_bundle/models/admin_mode.dart';
 import 'package:inno_bundle/models/build_arch.dart';
 import 'package:inno_bundle/models/build_type.dart';
 import 'package:inno_bundle/models/language.dart';
-import 'package:inno_bundle/models/admin_mode.dart';
 import 'package:inno_bundle/models/sign_tool.dart';
 import 'package:inno_bundle/utils/cli_logger.dart';
 import 'package:inno_bundle/utils/constants.dart';
@@ -83,6 +84,18 @@ class Config {
   /// Arguments to be passed to flutter build.
   final String? buildArgs;
 
+  /// Run the executable if the installer is in silent mode.
+  final bool? runIfSilentMode;
+
+  /// Arguments to be passed to the executable after the installer finishes successfully.
+  final List<String>? runArgs;
+
+  /// Arguments to be passed to the executable after the installer successfully completes in silent mode.
+  final List<String>? runSilentArgs;
+
+  /// Content to be appended in the [Code] section.
+  final String? appendSectionCode;
+
   /// Creates a [Config] instance with default values.
   const Config({
     required this.buildArgs,
@@ -104,6 +117,10 @@ class Config {
     this.type = BuildType.debug,
     this.app = true,
     this.installer = true,
+    required this.runIfSilentMode,
+    required this.runArgs,
+    required this.runSilentArgs,
+    required this.appendSectionCode,
   });
 
   /// The name of the executable file that is created with flutter build.
@@ -250,6 +267,11 @@ class Config {
     }
     final arch = BuildArch.fromOption(inno['arch']);
 
+    final runIfSilentMode = (inno["run_if_silent_mode"] as bool?) ?? false;
+    final runArgs = (inno['run_args'] as List<String>?);
+    final runSilentArgs = (inno['run_silent_args'] as List<String>?);
+    final appendSectionCode = inno['append_section_code'] as String?;
+
     return Config(
       buildArgs: buildArgs,
       id: id,
@@ -270,6 +292,10 @@ class Config {
       licenseFile: licenseFile,
       signTool: signTool,
       arch: arch,
+      runIfSilentMode: runIfSilentMode,
+      runArgs: runArgs,
+      runSilentArgs: runSilentArgs,
+      appendSectionCode: appendSectionCode,
     );
   }
 
