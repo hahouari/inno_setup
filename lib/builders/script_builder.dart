@@ -195,6 +195,29 @@ $silentMode
 \n''';
   }
 
+  /// Generates the `[Code]` section, allowing the inclusion of Pascal code to customize the behavior of the installer and define additional logic during the installation process.
+  String _code() {
+    String appendContent = "";
+
+    if (config.appendSectionCode != null) {
+      if (config.appendSectionCode!.startsWith("file:")) {
+        appendContent =
+            File(config.appendSectionCode!.replaceFirst("file:", ""))
+                .readAsStringSync();
+      } else {
+        appendContent = config.appendSectionCode!;
+      }
+    }
+
+    return '''
+[Code]
+function IsSilentInstall: Boolean;
+begin
+  Result := WizardSilent;
+end;
+\n$appendContent''';
+  }
+
   /// Generates the ISS script file and returns its path.
   Future<File> build() async {
     CliLogger.info("Generating ISS script...");
@@ -205,7 +228,8 @@ $silentMode
         _tasks() +
         _files() +
         _icons() +
-        _run();
+        _run() +
+        _code();
     final relScriptPath = p.joinAll([
       ...installerBuildDir,
       config.type.dirName,
