@@ -13,6 +13,7 @@
 /// - [_files]: Generates the `[Files]` section.
 /// - [_icons]: Generates the `[Icons]` section.
 /// - [_run]: Generates the `[Run]` section.
+/// - [_code]: Generates the `[Code]` section.
 ///
 /// The [build] method is the main method of this class, which combines all the sections and writes
 /// the complete ISS script to a file. It returns the generated script file.
@@ -20,8 +21,8 @@ library;
 
 import 'dart:io';
 
-import 'package:inno_bundle/models/config.dart';
 import 'package:inno_bundle/models/admin_mode.dart';
+import 'package:inno_bundle/models/config.dart';
 import 'package:inno_bundle/utils/cli_logger.dart';
 import 'package:inno_bundle/utils/constants.dart';
 import 'package:inno_bundle/utils/functions.dart';
@@ -169,9 +170,28 @@ Name: "{autodesktop}\\${config.name}"; Filename: "{app}\\${config.exeName}"; Tas
 
   /// Generates the `[Run]` section, specifying actions to perform after the installation is complete.
   String _run() {
+    String normalModeParameters = "";
+    String silentModeParameters = "";
+
+    if (config.runArgs != null) {
+      normalModeParameters = " Parameters: \"${config.runArgs?.join(" ")}\";";
+    }
+
+    String normalMode =
+        '''Filename: "{app}\\${config.exeName}";$normalModeParameters Description: "{cm:LaunchProgram,{#StringChange('${config.name}', '&', '&&')}}"; Flags: nowait postinstall skipifsilent; Check: not IsSilentInstall''';
+    String silentMode = "";
+
+    if (config.runIfSilentMode == true && config.runSilentArgs != null) {
+      silentModeParameters =
+          " Parameters: \"${config.runSilentArgs?.join(" ")}\";";
+      silentMode =
+          '''Filename: "{app}\\${config.exeName}";$silentModeParameters Description: "{cm:LaunchProgram,{#StringChange('${config.name}', '&', '&&')}}"; Flags: nowait postinstall; Check: IsSilentInstall''';
+    }
+
     return '''
 [Run]
-Filename: "{app}\\${config.exeName}"; Description: "{cm:LaunchProgram,{#StringChange('${config.name}', '&', '&&')}}"; Flags: nowait postinstall skipifsilent
+$normalMode
+$silentMode
 \n''';
   }
 
